@@ -59,9 +59,11 @@ let activeThumbIndex = 0;
 thumbsArray[activeThumbIndex].classList.add("active");
 const delay = 3000;
 
-const activeImg = document.querySelector('.slider');
-activeImg.addEventListener('mouseover', mouseOver);
-activeImg.addEventListener('mouseover', mouseOut);
+//**** Da capire perchè non funziona */
+// const activeImg = document.getElementsByClassName('slider')
+// console.log(activeImg);
+// activeImg.addEventListener("mouseover", mouseOver);
+// activeImg.addEventListener("mouseover", mouseOut);
 
 activeDelay(delay);
 
