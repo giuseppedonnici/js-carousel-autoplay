@@ -68,17 +68,6 @@ const delay = 3000;
 activeDelay(delay);
 
 
-
-
-
-
-// itemsArray.addEventListener('mouseover', function() {
-//     clearInterval(autoplay);
-// })
-
-// A questo punto è visibile solo il primo itemsArray, devo andare a gestire la classe active
-// spostando l'indice
-
 // Prelevo i due bottoni
 const nextBtn = document.querySelector(".next");
 const prevBtn = document.querySelector(".prev");
@@ -87,34 +76,19 @@ const prevBtn = document.querySelector(".prev");
 nextBtn.addEventListener("click", function () {
     clearInterval(autoplay);
     activeDelay(delay);
-    // togli la classe hidden al bottone prev
-    // prevBtn.classList.remove("hidden"); (***PARTE DEL MILESTONE 3***)
 
     if (activeItemIndex === itemsArray.length - 1) {
-        itemsArray[activeItemIndex].classList.remove("active");
-        thumbsArray[activeThumbIndex].classList.remove("active");
+        removeClass();
         activeItemIndex = 0;
         activeThumbIndex = 0;
-        itemsArray[activeItemIndex].classList.add("active");
-        thumbsArray[activeThumbIndex].classList.add("active");
+        addClass();
     } else if (activeItemIndex < (itemsArray.length - 1)) {
         // Se l'indice dell'item attuale è minore della lunghezza dell'array 
-        // rimuovi la classe active
-        itemsArray[activeItemIndex].classList.remove("active");
-        thumbsArray[activeThumbIndex].classList.remove("active");
-        // incrementa di 1 l'indice attuale
+        removeClass();
         activeItemIndex++;
         activeThumbIndex = activeThumbIndex + 6;
-        // aggiungi la classe active al nuovo item
-        itemsArray[activeItemIndex].classList.add("active");
-        thumbsArray[activeThumbIndex].classList.add("active");
+        addClass();
         console.log(activeThumbIndex)
-
-        // Se sei arrivato all'ultimo item (***PARTE DEL MILESTONE 3***)
-        // if (activeItemIndex === itemsArray.length - 1) {
-        //     // aggiungi la classe hidden al bottone next
-        //     nextBtn.classList.add("hidden");
-        // }
     }
 });
 
@@ -123,32 +97,15 @@ prevBtn.addEventListener("click", function () {
 
     // Se ti trovi alla prima immagine
     if (activeItemIndex === 0) {
-        // togli la classe active dall'item corrente
-        itemsArray[activeItemIndex].classList.remove("active");
-        thumbsArray[activeThumbIndex].classList.remove("active");
-        // assegna l'indico dell'ultimo elemento dell'array
+        removeClass();
         activeItemIndex = itemsArray.length - 1;
         activeThumbIndex = thumbsArray.length - 1;
-        // aggiungi la classe active
-        itemsArray[activeItemIndex].classList.add("active");
-        thumbsArray[activeThumbIndex].classList.add("active");
+        addClass();
     } else {
-        // togli la classe hidden dal bottone next
-        // nextBtn.classList.remove("hidden"); (***PARTE DEL MILESTONE 3***)
-        // togli la classe active dall'item corrente
-        itemsArray[activeItemIndex].classList.remove("active");
-        thumbsArray[activeThumbIndex].classList.remove("active");
-        // decrementa l'indice di 1
+        removeClass();
         activeItemIndex--;
-        activeThumbIndex = activeThumbIndex -6;
-        // aggiungi la classe active all'item corrente
-        itemsArray[activeItemIndex].classList.add("active");
-        thumbsArray[activeThumbIndex].classList.add("active");
-
-        // Se sei arrivato al primo item (***PARTE DEL MILESTONE 3***)
-        // if (activeItemIndex === 0) {
-        //     prevBtn.classList.add("hidden");
-        // }
+        activeThumbIndex = activeThumbIndex - 6;
+        addClass();
     }
 })
 
@@ -159,29 +116,41 @@ prevBtn.addEventListener("click", function () {
  * @param {number} delay numero in millisecondi
  */
 function activeDelay(delay) {
-    autoplay = setInterval(function() {
+    autoplay = setInterval(function () {
         if (activeItemIndex === itemsArray.length - 1) {
-            itemsArray[activeItemIndex].classList.remove("active");
-            thumbsArray[activeThumbIndex].classList.remove("active");
+            removeClass();
             activeItemIndex = 0;
             activeThumbIndex = 0;
-            itemsArray[activeItemIndex].classList.add("active");
-            thumbsArray[activeThumbIndex].classList.add("active");
+            addClass();
         } else {
-            itemsArray[activeItemIndex].classList.remove("active");
-            thumbsArray[activeThumbIndex].classList.remove("active");
+            removeClass();
             activeItemIndex++;
             activeThumbIndex = activeThumbIndex + 6;
-            itemsArray[activeItemIndex].classList.add("active");
-            thumbsArray[activeThumbIndex].classList.add("active");
+            addClass();
         }
     }, delay);
 }
 
-function mouseOver(){
+function mouseOver() {
     clearInterval(autoplay);
 }
 
 function mouseOut() {
     activeDelay(delay);
+}
+
+/**
+ * Descrizione: rimuove la classe "active" sia dall'item che dal thumb attivi
+ */
+function removeClass() {
+    itemsArray[activeItemIndex].classList.remove("active");
+    thumbsArray[activeThumbIndex].classList.remove("active");
+}
+
+/**
+ * Descrizione: aggiunge la classe "active" sia all'item che al thumb attivi
+ */
+function addClass() {
+    itemsArray[activeItemIndex].classList.add("active");
+    thumbsArray[activeThumbIndex].classList.add("active");
 }
