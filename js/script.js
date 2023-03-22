@@ -58,15 +58,14 @@ itemsArray[activeItemIndex].classList.add("active");
 let activeThumbIndex = 0;
 thumbsArray[activeThumbIndex].classList.add("active");
 const delay = 3000;
-
-//**** Da capire perchè non funziona */
-// const activeImg = document.getElementsByClassName('slider')
-// console.log(activeImg);
-// activeImg.addEventListener("mouseover", mouseOver);
-// activeImg.addEventListener("mouseover", mouseOut);
-
 activeDelay(delay);
 
+itemsContainer.addEventListener("mouseenter", function() {
+    clearInterval(autoplay);
+})
+itemsContainer.addEventListener("mouseleave", function() {
+    activeDelay(delay);
+})
 
 // Prelevo i due bottoni
 const nextBtn = document.querySelector(".next");
@@ -82,18 +81,21 @@ nextBtn.addEventListener("click", function () {
         activeItemIndex = 0;
         activeThumbIndex = 0;
         addClass();
+        clearInterval(autoplay);
     } else if (activeItemIndex < (itemsArray.length - 1)) {
         // Se l'indice dell'item attuale è minore della lunghezza dell'array 
         removeClass();
         activeItemIndex++;
         activeThumbIndex = activeThumbIndex + 6;
         addClass();
-        console.log(activeThumbIndex)
+        clearInterval(autoplay);
     }
 });
 
 // Cosa succede quando clicco sul bottone prev?
 prevBtn.addEventListener("click", function () {
+    clearInterval(autoplay);
+    activeDelay(delay);
 
     // Se ti trovi alla prima immagine
     if (activeItemIndex === 0) {
@@ -101,11 +103,13 @@ prevBtn.addEventListener("click", function () {
         activeItemIndex = itemsArray.length - 1;
         activeThumbIndex = thumbsArray.length - 1;
         addClass();
+        clearInterval(autoplay);
     } else {
         removeClass();
         activeItemIndex--;
         activeThumbIndex = activeThumbIndex - 6;
         addClass();
+        clearInterval(autoplay);
     }
 })
 
